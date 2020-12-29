@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ais-api
+    group: com.taiyo
+  name: ais-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ais-api
+      group: com.taiyo
+  template:
+    metadata:
+      labels:
+        app: ais-api
+        group: com.taiyo
+    spec:
+      containers:
+      - name: ais-api
+        image: eu.gcr.io/taiyo-239217/taiyo/ais-api:v0.0.1
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: '125Mi'
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ais-api
+    group: com.taiyo
+  name: ais-api
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: ais-api
+    group: com.taiyo
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    #nginx.ingress.kubernetes.io/proxy-next-upstream: "3600"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "3600"
+  labels:
+    app: ais-api
+    group: com.taiyo
+  name: ais-api
+  namespace: default
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /ais-api
+        backend:
+          serviceName: ais-api
+          servicePort: 80
