@@ -9,19 +9,19 @@ This is a nodejs web app.
 
 #### /getLastPosition/:mmsi
 Takes position from MT and from VT and returns the newest
-example: http://localhost:5000/getLastPosition/211281610
+example: http://localhost:8000/getLastPosition/211281610
 
 #### /getLastPositionFromVF/:mmsi
 Returns position from VF
-example: http://localhost:5000/getLastPositionFromVF/
+example: http://localhost:8000/getLastPositionFromVF/
 
 #### /getLastPositionFromMT/:mmsi
 Returns position from MT
-example: http://localhost:5000/getLastPositionFromMT/211281610
+example: http://localhost:8000/getLastPositionFromMT/211281610
 
 #### /getVesselsInArea/:area
 Returns all vessels in area, defined by a list of area keywords
-example: http://localhost:5000/getVesselsInArea/WMED,EMED
+example: http://localhost:8000/getVesselsInArea/WMED,EMED
 ``` Javascript
 [{
   name: vessel.SHIPNAME,
@@ -60,7 +60,7 @@ Requirements: docker
 
 1. `docker build -t ais-api .`  
 
-2. `docker run -p 5000:5000 ais-api`  
+2. `docker run -p 8000:8000 ais-api`  
 
 
 ## Deploy to heroku

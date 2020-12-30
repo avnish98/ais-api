@@ -7,7 +7,7 @@ const areaApi = require('./area');
 function init() {
   const app = express();
 
-  app.set('port', (process.env.PORT || 5000))
+  app.set('port', (process.env.PORT || 8000))
 
   app.get('/ais-api', (request, response) => {
     response.sendFile(path.join(__dirname + '/index.html'));
