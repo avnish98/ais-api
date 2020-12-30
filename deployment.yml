@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: ais-api
-        image: eu.gcr.io/taiyo-239217/taiyo/ais-api:v0.0.1
+        image: eu.gcr.io/taiyo-239217/taiyo/ais-api:v0.0.2
         imagePullPolicy: Always
         resources:
           requests:
